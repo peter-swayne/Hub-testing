@@ -1,0 +1,53 @@
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.annotations.Test;
+import java.net.MalformedURLException;
+import java.net.URL;
+import org.apache.logging.log4j.*;
+
+public class JenkinsSeleniumGridTest {
+    private static Logger log = LogManager.getLogger(JenkinsSeleniumGridTest.class);
+
+    @Test
+    public void JenkinsDemoFunc() throws MalformedURLException {
+        ChromeOptions chromeOptions = new ChromeOptions();
+        //initialize chromeOptions
+        chromeOptions.setCapability("browserName", "chrome");
+        //Define on which browser you want to execute your tests.
+        chromeOptions.setCapability("platformName", "LINUX");
+        //Define in which mode your tests will run.
+        chromeOptions.addArguments("--headless");
+        //Define the platform on which you will execute your tests
+        WebDriver driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), chromeOptions);
+        //URL to the hub running on your local system
+        driver.get("http://www.knoldus.com");
+        //URL to hit
+        log.debug(driver.getTitle());
+        //Print the title of the webpage
+        log.debug(driver.getCurrentUrl());
+        //Print the URL of the current webpage
+        driver.quit();
+        //Close the browser
+    }
+}
+In this code, we are providing the browser name and platform name on which our tests will run.
+Using Jenkins, we usually execute our tests in the headless mode to do that will pass headless argument in our code.
+In remote WebDriver URL, we are giving the URL which is present in the Jenkins Hub management.
+We need to provide the valid URL which we will hit.
+peek-2021-05-17-00-20-mp4
+Edit description
+videopress.com
+
+Output from Intellij
+
+peek-2021-05-17-00-22-mp4
+Edit description
+videopress.com
+
+Output from Jenkins
+
+So, this was a short blog on how we can achieve Jenkins Integration with Selenium Grid. See you in the next one.
+References
+https://www.selenium.dev/documentation/en/
+Knoldus-blog-footer-image
